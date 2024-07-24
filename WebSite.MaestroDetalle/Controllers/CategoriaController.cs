@@ -57,10 +57,12 @@ namespace WebSite.MaestroDetalle.Controllers
             bool respuesta;
             if (modelo.IdCategoria == 0)
             {
+                TempData["Message"] = "La categoria se creo exitosamente.";
                 respuesta = await _serviciosAPI.Crear(modelo);
             }
             else
             {
+                TempData["Message"] = "La categoria se actualizo exitosamente.";
                 respuesta = await _serviciosAPI.Actualizar(modelo);
             }
             if (respuesta)

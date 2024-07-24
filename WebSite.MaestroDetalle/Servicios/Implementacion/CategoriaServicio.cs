@@ -55,7 +55,10 @@ namespace WebSite.MaestroDetalle.Servicios.Implementacion
         public async Task<bool> Borrar(int Id)
         {
             var resultado = await _httpClient.DeleteAsync($"api/Categoria/Borrar/{Id}");
-            return resultado.IsSuccessStatusCode;
+            if (resultado.IsSuccessStatusCode)
+                return true;
+            else
+                return false;
         }//fin
 
         public async Task<bool> Crear(Categoria modelo)
