@@ -1,0 +1,64 @@
+﻿@model List<Producto>
+@{
+    ViewData["Title"] = "Productos";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Detalle Productos</h1>
+</div>
+
+@if (TempData["Message"] != null)
+{
+    <div id="tempMessage" class="alert alert-info" role="alert">
+        @TempData["Message"]
+    </div>
+}
+
+<div class="card">
+    <div class="card-header">
+        <a asp-action="ActualizarProducto" asp-route-IdProducto="0" class="btn btn-success btn-sm">Nuevo</a>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Categoria Producto</th>
+                    <th>Nombre Producto</th>
+                    <th>Descripción Producto</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Fecha Creación</th>
+                    <th>Fecha Modificación</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.IdProducto</td>
+                        <td>@item.CategoriaNombre</td>
+                        <td>@item.Nombre</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.Precio.ToString("N2")</td>
+                        <td>@item.Cantidad</td>
+                        <td>
+                            @(item.FechaCreacion.HasValue ? item.FechaCreacion.Value.ToString("dd/MM/yyyy") : "")
+                        </td>
+                        <td>
+                            @(item.FechaModificacion.HasValue ? item.FechaModificacion.Value.ToString("dd/MM/yyyy") : "")
+                        </td>
+                        <td>
+                            <a asp-action="ActualizarProducto" asp-route-IdProducto="@item.IdProducto" class="btn btn-primary btn-sm">Actualizar</a>
+                            <form asp-action="BorrarProducto" method="post" style="display:inline;">
+                                <input type="hidden" name="IdProducto" value="@item.IdProducto" />
+                                <button type="submit" class="btn btn-danger btn-sm">Borrar</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

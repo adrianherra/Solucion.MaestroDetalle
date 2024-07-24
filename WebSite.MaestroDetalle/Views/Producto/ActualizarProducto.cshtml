@@ -1,0 +1,41 @@
+﻿@model Producto
+@{
+    ViewData["Title"] = "Productos";
+}
+
+<div class="text-left">
+    <h1 class="display-4">Productos</h1>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        @ViewBag.Accion
+    </div>
+    <div class="card-body">
+        <form asp-action="GuardarCambios" method="post">
+            <input asp-for="IdProducto" type="hidden" />
+            <div class="mb-2">
+                <label class="form-label">Nombre Producto</label>
+                <input type="text" class="form-control form-control-sm" asp-for="Nombre" />
+            </div>
+            <div class="mb-2">
+                <label class="form-label">Descripción Producto</label>
+                <input type="text" class="form-control form-control-sm" asp-for="Descripcion" />
+            </div>
+            <div class="mb-2">
+                <label class="form-label" for="IdCategoria">Categoría Producto</label>
+                <select class="form-control form-control-sm" asp-for="IdCategoria" asp-items="ViewBag.Items"></select>
+            </div>
+            <div class="mb-2">
+                <label class="form-label">Precio Producto</label>
+                <input type="text" class="form-control form-control-sm" asp-for="Precio" />
+            </div>
+            <div class="mb-2">
+                <label class="form-label">Cantidad Producto</label>
+                <input type="number" class="form-control form-control-sm" asp-for="Cantidad" />
+            </div>
+            <button type="submit" class="btn btn-success btn-sm">Guardar</button>
+            <a asp-action="Index" class="btn btn-warning btn-sm">Volver</a>
+        </form>
+    </div>
+</div>

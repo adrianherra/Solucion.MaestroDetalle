@@ -1,0 +1,29 @@
+﻿@model Categoria
+@{
+    ViewData["Title"] = "Categorias";
+}
+
+<div class="text-left">
+    <h1 class="display-4">Categorias</h1>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        @ViewBag.Accion
+    </div>
+    <div class="card-body">
+        <form asp-action="GuardarCambios" asp-controller="Categoria" method="post">
+            <input asp-for="IdCategoria" type="hidden" />
+            <div class="mb-2">
+                <label class="form-label">Nombre Categoria</label>
+                <input type="text" class="form-control form-control-sm" asp-for="Nombre" />
+            </div>
+            <div class="mb-2">
+                <label class="form-label">Descripción Categoria</label>
+                <input type="text" class="form-control form-control-sm" asp-for="Descripcion" />
+            </div>
+            <button type="submit" class="btn btn-success btn-sm">Guardar</button>
+            <a asp-action="Index" asp-controller="Categoria" class="btn btn-warning btn-sm">Volver</a>
+        </form>
+    </div>
+</div>

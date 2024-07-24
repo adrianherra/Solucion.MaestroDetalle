@@ -1,0 +1,73 @@
+﻿@model List<Categoria>
+@{
+    ViewData["Title"] = "Categorias";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Detalle Categorias</h1>
+</div>
+
+@if (TempData["Message"] != null)
+{
+    <div id="tempMessage" class="alert alert-info" role="alert">
+        @TempData["Message"]
+    </div>
+}
+
+<div class="card">
+    <div class="card-header">
+        <a asp-action="ActualizarCategoria" asp-route-IdCategoria="0" class="btn btn-success btn-sm">Nuevo</a>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre Categoria</th>
+                    <th>Descripción Categoria</th>
+                    <th>Fecha Creación</th>
+                    <th>Fecha Modificación</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.IdCategoria</td>
+                        <td>@item.Nombre</td>
+                        <td>@item.Descripcion</td>
+                        <td>
+                            @(item.FechaCreacion.HasValue ? item.FechaCreacion.Value.ToString("dd/MM/yyyy") : "")
+                        </td>
+                        <td>
+                            @(item.FechaModificacion.HasValue ? item.FechaModificacion.Value.ToString("dd/MM/yyyy") : "")
+                        </td>
+                        <td>
+                            <a asp-action="ActualizarCategoria" asp-route-IdCategoria="@item.IdCategoria" class="btn btn-primary btn-sm">Actualizar</a>
+                            <form asp-action="BorrarCategoria" method="post" style="display:inline;">
+                                <input type="hidden" name="IdCategoria" value="@item.IdCategoria" />
+                                <button type="submit" class="btn btn-danger btn-sm">Borrar</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var tempMessage = $("#tempMessage");
+            if (tempMessage.length) {
+                setTimeout(function () {
+                    tempMessage.fadeOut("slow", function () {
+                        $(this).remove();
+                    });
+                }, 3000);
+            }
+        });
+    </script>
+}
